@@ -7,10 +7,11 @@
 # Tags: https://github.com/huggingface/text-embeddings-inference/pkgs/container/text-embeddings-inference#
 ##########################################################################################################
 
+# Dynamically set the location to the directory of this script
+Set-Location -Path $PSScriptRoot
 
 $model = "dunzhang/stella_en_1.5B_v5"
-Set-Location C:\dev\tei\
-$volume = "$pwd\models\"
+$volume = "${PSScriptRoot}\models\" # Use the script's location for models directory
 $prompt_name = "s2p_query"
 # either we use the default_prompt of the name
 # $default_prompt = "Instruct: Given a web search query, retrieve relevant passages that answer the query.\nQuery: "
@@ -18,6 +19,8 @@ $docker_container_name = "huggingface-embeddings-inference"
 $containerport = 3000 # the huggingface server inside listens on this port
 $localport = 3001
 $image = "ghcr.io/huggingface/text-embeddings-inference:cuda-1.6"
+
+docker rm $docker_container_name
 
 # Check if anything is already listening on local port
 if (Get-NetTCPConnection -LocalPort $localport -ErrorAction SilentlyContinue) {
