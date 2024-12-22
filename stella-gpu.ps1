@@ -22,7 +22,8 @@ $prompt_name = "s2p_query"
 $docker_container_name = "huggingface-embeddings-inference"
 $containerport = 3000 # the huggingface server inside listens on this port
 $localport = 3001
-$image = "ghcr.io/huggingface/text-embeddings-inference:cuda-1.6"
+# best image reference for ADA RTX https://github.com/huggingface/text-embeddings-inference?tab=readme-ov-file#docker-images
+$image = "ghcr.io/huggingface/text-embeddings-inference:89-1.6"
 
 docker rm $docker_container_name
 
