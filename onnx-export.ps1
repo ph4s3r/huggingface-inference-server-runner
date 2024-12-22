@@ -1,0 +1,1 @@
+optimum-cli export onnx --model dunzhang/stella_en_1.5B_v5 models--dunzhang--stella_en_1.5B_v5\snapshots\221e30586ab5186c4360cbb7aeb643b6efc9d8f8\
