@@ -7,6 +7,10 @@
 # Tags: https://github.com/huggingface/text-embeddings-inference/pkgs/container/text-embeddings-inference#
 ##########################################################################################################
 
+# WARNING: sometimes it takes 5-6 minutes for the model to start, for example:
+# 2024-12-22T22:00:29.017555Z  INFO text_embeddings_backend_candle: backends/candle/src/lib.rs:373: Starting FlashQwen2 model on Cuda(CudaDevice(DeviceId(1)))
+# 2024-12-22T22:05:36.201611Z  INFO text_embeddings_router: router/src/lib.rs:248: Warming up model
+
 # Dynamically set the location to the directory of this script
 Set-Location -Path $PSScriptRoot
 
