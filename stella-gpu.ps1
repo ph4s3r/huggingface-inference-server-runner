@@ -25,6 +25,10 @@ $localport = 3001
 # best image reference for ADA RTX https://github.com/huggingface/text-embeddings-inference?tab=readme-ov-file#docker-images
 $image = "ghcr.io/huggingface/text-embeddings-inference:89-1.6"
 
+# would be nice to set the max token length however it is not yet implemented:
+# https://github.com/huggingface/text-embeddings-inference/issues/396
+# $max_input_length = 768 
+
 docker rm $docker_container_name
 
 # Check if anything is already listening on local port
