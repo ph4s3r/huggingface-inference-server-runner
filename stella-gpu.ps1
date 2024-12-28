@@ -1,6 +1,6 @@
 ##########################################################################################################
 # Author: Peter Karacsonyi                                                                               #
-# Last updated: 2024 dec 22                                                                              #
+# Last updated: 2024 dec 28                                                                              #
 # Runner script for HuggingFace Embedding Inference Server                                               #
 # Main github project site: https://github.com/huggingface/text-embeddings-inference                     #
 # API endpoints: https://huggingface.github.io/text-embeddings-inference/                                #
@@ -25,10 +25,33 @@ $localport = 3001
 # best image reference for ADA RTX https://github.com/huggingface/text-embeddings-inference?tab=readme-ov-file#docker-images
 $image = "ghcr.io/huggingface/text-embeddings-inference:89-1.6"
 
-# would be nice to set the max token length however it is not yet implemented:
-# https://github.com/huggingface/text-embeddings-inference/issues/396
-# $max_input_length = 768 
 
+##################################
+### MAX SEQ LEN QUESTION BEGIN ###
+# would be nice to set the max token length however it is not yet implemented as a switch of the router:
+# https://github.com/huggingface/text-embeddings-inference/issues/396
+# solution: there is a max_seq_len in the file models\models--dunzhang--stella_en_1.5B_v5\blobs\5116148bff3b077908431eba25e9f8541bc17469
+# however to make sure, now we use --auto-truncate to deal with longer sequences
+#### MAX SEQ LEN QUESTION END #####
+###################################
+
+
+#####################################
+### OUTUT DIMENSION QUESTION BEGIN ###
+# the word_embedding_dimension is set to 1536 in models\models--dunzhang--stella_en_1.5B_v5\blobs\3e006833f60b3c3101dd5af977ef000b76cc9b7d, 
+# however changing that does not change the output. There is nothing in the initially downloaded files we can change afaik 
+### OUTUT DIMENSION QUESTION END ###
+####################################
+
+
+####################################################
+### DOWNLOADED VS LOCAL MODEL USE QUESTION BEGIN ###
+# After a model is being downloaded, we can modify the files e.g. above to modify the model itself.
+# can we work on it with transformers maybe?
+#### DOWNLOADED VS LOCAL MODEL USE QUESTION END ####
+####################################################
+
+docker stop $docker_container_name
 docker rm $docker_container_name
 
 # Check if anything is already listening on local port
@@ -39,4 +62,4 @@ if (Get-NetTCPConnection -LocalPort $localport -ErrorAction SilentlyContinue) {
 
 # Run the Docker container
 docker run --gpus all -p ${localport}:$containerport -v "${volume}:/data" --name $docker_container_name $image `
-    --model-id $model --default-prompt-name $prompt_name --port $containerport
+    --model-id $model --default-prompt-name $prompt_name --port $containerport --auto-truncate
