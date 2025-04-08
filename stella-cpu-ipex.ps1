@@ -18,7 +18,7 @@
 # Dynamically set the location to the directory of this script
 Set-Location -Path $PSScriptRoot
 
-$model = "dunzhang/stella_en_1.5B_v5"
+$model = "NovaSearch/stella_en_1.5B_v5"
 $volume = "${PSScriptRoot}\models\" # Use the script's location for models directory
 $prompt_name = "s2p_query"
 # either we use the default_prompt of the name
